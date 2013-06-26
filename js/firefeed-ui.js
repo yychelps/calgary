@@ -35,10 +35,10 @@ FirefeedUI.prototype._setupHandlers = function() {
     e.preventDefault();
     self._go($(this).attr("href"));
   });
-  $(document).on("click", "#search-button", function(e) {
-    e.preventDefault();
-    self._go("/?search");
-  });
+  // $(document).on("click", "#search-button", function(e) {
+  //     e.preventDefault();
+  //     self._go("/?search");
+  //   });
   $(document).on("click", "#top-logo", function(e) {
     e.preventDefault();
     self._go("/");
@@ -76,9 +76,9 @@ FirefeedUI.prototype._pageController = function(url) {
         this._unload = this.renderSpark(value[1]);
       }
       break;
-    case "search":
-      this._unload = this.renderSearch();
-      break;
+    // case "search":
+    //   this._unload = this.renderSearch();
+    //   break;
     default:
       if (this._loggedIn) {
         this._unload = this.renderTimeline(this._loggedIn);
@@ -152,9 +152,6 @@ FirefeedUI.prototype._formatDate = function(date) {
 FirefeedUI.prototype._editableHandler = function(id, value) {
   if (id == "inputLocation") {
     this._firefeed.setProfileField("location", value);
-  }
-  if (id == "inputBio") {
-    this._firefeed.setProfileField("bio", value);
   }
   return true;
 };
@@ -270,8 +267,7 @@ FirefeedUI.prototype.renderTimeline = function(info) {
   $("#header").html(Mustache.to_html($("#tmpl-page-header").html(), {user: self._loggedIn}));
 
   // Render placeholders for location / bio if not filled in.
-  info.location = info.location.substr(0, 80) || "Your Location...";
-  info.bio = info.bio.substr(0, 141) || "Your Bio...";
+  info.location = info.location.substr(0, 80) || "Your Address...";
 
   // Render body.
   var content = Mustache.to_html($("#tmpl-timeline-content").html(), info);
