@@ -187,7 +187,7 @@ Firefeed.prototype.onLogin = function(user) {
       // If this is a first time login, upload user details.
       info = {
         name: self._name, fullName: self._fullName,
-        location: "", bio: "", pic: self._getPicURL()
+        location: "", pic: self._getPicURL()
       };
       peopleRef.set(info);
     } else {
@@ -411,7 +411,7 @@ Firefeed.prototype.post = function(content, onComplete) {
 
   var spark = {
     author: self._userid,
-    by: self._fullName,
+    by: self._name,
     content: content,
     timestamp: new Date().getTime()
   };
