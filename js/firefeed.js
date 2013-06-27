@@ -348,6 +348,17 @@ Firefeed.prototype.getSpark = function(id, onComplete) {
   });
 };
 
+
+Firefeed.prototype.accept = function(id, onComplete) {
+	//this is a stub
+  var self = this;
+  self._validateCallback(onComplete);
+
+  var sparkRef = self._firebase.child("sparks").child(id);
+  sparkRef.transaction(function(fulfilled) {
+  	return fulfilled+1;
+  });
+};
 /**
  * Follow a particular user, on behalf of the user who is currently logged in.
  * The provided callback will be called with (err, done) where "err" will be

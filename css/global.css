@@ -68,6 +68,10 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   display: table-cell;
 }
 
+.quantity {
+	text-align: center;
+}
+
 .score{
 	float: right;
 	display: table-cell;
