@@ -101,14 +101,14 @@ FirefeedUI.prototype._postHandler = function(e) {
   var sparkButton = $("#spark-button");
   var containerEl = $("#spark-button-div");
   var location = document.getElementById("inputLocation").innerHTML;
-  var qntyNum = document.getElementById("qnty").innerHTML;
+  var qntyNum = document.getElementById("qnty").value;
   var message = $("<div>").addClass("msg").html("Posting...");
 
   var self = this;
   e.preventDefault();
   sparkButton.replaceWith(message);
   self._spinner.spin(containerEl.get(0));
-  self._firefeed.post(sparkText.val(), location, qnty, function(err, done) {
+  self._firefeed.post(sparkText.val(), location, qntyNum, function(err, done) {
     if (!err) {
       message.html("Posted!").css("background", "#008000");
       sparkText.val("");
@@ -318,8 +318,9 @@ FirefeedUI.prototype.renderTimeline = function(info) {
 
   // Attach new spark event handler, capped to 10 for now.
   self._handleNewSpark(
-    "spark-timeline-list", 10,
-    self._firefeed.onNewSpark.bind(self._firefeed)
+    "spark-timeline-list", 80,
+    // self._firefeed.onNewSpark.bind(self._firefeed)
+    self._firefeed.onLatestSpark.bind(self._firefeed)
   );
 
   // Get some "suggested" users.

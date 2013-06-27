@@ -59,11 +59,12 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
   float: left;
   margin-right: 10px;
 }
-.media .body{
+
+.twothird .media .body{
   overflow: hidden;
   margin-bottom: 0;
   float: left;
-  width: 80%;
+  width: 70%;
   display: table-cell;
 }
 
@@ -706,14 +707,51 @@ span.bold {
 
 /* Tablets
 ============================================================ */
-@media (min-width: 721px) and (max-width: 960px){
+@media (min-width: 481px) and (max-width: 960px){
   .hidden-tablet{display: none !important;}
   .visible-tablet{display: inherit !important;}
+
+.wrapper{width: auto;}
+
+  .row .half,
+  .row .third,
+  .row .quarter,
+  .row .fifth,
+  .row .sixth,
+  .row .twothird,
+  .row .twofifth,
+  .row .threefifth,
+  .row .fourfifth,
+  .row .fivesixth,
+  .row .threequarter {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .push-half,
+  .push-threequarter,
+  .push-quarter,
+  .push-third,
+  .push-twothird,
+  .push-fifth,
+  .push-twofifth,
+  .push-threefifth,
+  .push-fourfifth,
+  .push-sixth,
+  .push-fivesixth{margin-left: 0;}
+
+  #logo{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  img.left,
+  img.right{max-width: 50%;}
 }
 
 /* Mobile
 ============================================================ */
-@media (max-width: 720px){
+@media (max-width: 480px){
   .hidden-phone{display: none !important;}
   .visible-phone{display: inherit !important;}
 
@@ -753,5 +791,19 @@ span.bold {
 
   img.left,
   img.right{max-width: 50%;}
+
+  .twothird .media .body{
+    overflow: hidden;
+    margin-bottom: 0;
+    float: left;
+    width: 80%;
+    display: table-cell;
+  }
+
+  .score{
+	display:table-row;
+	margin-left:auto;
+	margin-right:auto;
+  }
 
 }

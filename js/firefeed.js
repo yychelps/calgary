@@ -403,7 +403,7 @@ Firefeed.prototype.post = function(content, location, qtny, onComplete) {
   self._validateString(content, "spark");
   self._validateString(content, "location");
   self._validateCallback(onComplete);
-  requested = Number(qtny);
+  requested = qtny;
   fulfilled = 0;
 
   // First, we add the spark to the global sparks list. push() ensures that

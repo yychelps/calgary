@@ -63,15 +63,7 @@
             </a>
           </div>
 
-          <div class="pushv4">
-            <a href="about.html" class="btn default pushv4">Read more about Firefeed</a>
-          </div>
-
           <hr/>
-
-          <h2 class="subheading">Latest Requests</h2>
-          <ul id="spark-index-list" class="item-list">
-          </ul>
         </div>
       </script>
 
@@ -81,7 +73,7 @@
             <div class="img avatar">
               <a class="profile-link" href="/?profile={{id}}"><img src="{{pic}}" alt="{{name}}"></a>
             </div>
-            <div class="body">
+            <div class="body" id="profile">
               <h2 class="end"><a class="profile-link" href="/?profile={{id}}">{{name}}</a></h2>
               <div class="big-copy end">
                 <div class="editable" id="inputLocation">{{location}}</div>
@@ -204,6 +196,9 @@
             </div>
 			<div class="score">
 				<h2 class='quantity'>{{fulfilled}}/{{requested}}</h2>
+				<div id="spark-button-div">
+		            <a id="spark-button" href="#" class="btn default small">Accept</a>
+		        </div>
 			</div>
           </div>
         </li>
