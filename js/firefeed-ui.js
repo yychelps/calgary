@@ -233,7 +233,7 @@ FirefeedUI.prototype.renderHome = function(e) {
 
   // Attach handler to display the latest 5 sparks.
   self._handleNewSpark(
-    "spark-index-list", 5,
+    "spark-index-list", 50,
     self._firefeed.onLatestSpark.bind(self._firefeed)
   );
   return function() { self._firefeed.unload(); };

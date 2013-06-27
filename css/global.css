@@ -51,7 +51,10 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 .visible-tablet,
 .visible-phone{display: none !important;}
 
-.media{display: block;}
+.media{
+	display: table;
+	width: 100%;
+}
 .media .img{
   float: left;
   margin-right: 10px;
@@ -59,6 +62,14 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 .media .body{
   overflow: hidden;
   margin-bottom: 0;
+  float: left;
+  width: 80%;
+  display: table-cell;
+}
+
+.score{
+	float: right;
+	display: table-cell;
 }
 
 .img img{display: block;}
@@ -252,7 +263,10 @@ h3,
 }
 
 .avatar.big{width: 140px;}
-.avatar.clean{border: 0 none;}
+.avatar.clean{
+	border: 0 none;
+	display: table-cell;
+	}
 .avatar img{width: 100%;}
 
 .separator{
@@ -330,7 +344,7 @@ h3,
 
 /* Forms
 ============================================================ */
-.field{margin-bottom: 20px;}
+.field{margin-bottom: 10px;}
 
 label{
   display: block;
@@ -345,6 +359,19 @@ label.checkbox span{vertical-align: middle;}
 label.checkbox input{margin-right: 5px;}
 
 .text{
+  border: 1px solid #CCBA8B;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1) inset;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #323031;
+  padding: 12px 16px;
+  width: 100%;
+  margin-top: 3px;
+}
+
+input#qnty{
   border: 1px solid #CCBA8B;
   border-radius: 6px;
   box-shadow: 0 1px 1px rgba(0,0,0,0.1) inset;
@@ -540,6 +567,10 @@ label.checkbox input{margin-right: 5px;}
 
 #suggested-users {
   min-height: 200px;
+}
+
+.qnty-selector{
+  padding-bottom: 10px;
 }
 
 #spark-button-div{

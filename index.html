@@ -92,7 +92,7 @@
             <textarea id="spark-input" class="text" rows="4" cols="10" placeholder="List the help and supplies you need. (Examples: Heavy Lifting, Garbage Disposal, Diapers, Laundry, etc.)"></textarea>
           </div>
           <small class="field-help"><span id="c-count"></span> characters remaining</small>
-		  <div class="qnty-selector">People required:<input type='text' id='qnty'/><span></span></div>
+		  <div class="qnty-selector"><input type='text' id='qnty' placeholder="People required"/></div>
           <div id="spark-button-div">
             <a id="spark-button" href="#" class="btn default full pushv4">Update Status</a>
           </div>
@@ -182,9 +182,6 @@
         </div>
         <h2 class="pushv">{{name}}</h2>
         <p class="big-copy pushv">{{location}}</p>
-        <div class="pushv4">
-          <a href="#" id="followBtn-{{id}}" class="btn default pushv4">Follow</a>
-        </div>
       </script>
 
       <script id="tmpl-spark" type="text/html">
@@ -204,6 +201,9 @@
                 <a class="spark-link" href="?spark={{sparkId}}">{{friendlyTimestamp}}</a>
               </p>
             </div>
+			<div class="score">
+				<h2 class='quantity'>{{fulfilled}}/{{requested}}</h2>
+			</div>
           </div>
         </li>
       </script>
