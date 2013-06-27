@@ -246,7 +246,6 @@ Firefeed.prototype.getUserInfo = function(user, onComplete,
   var handler = ref.on("value", function(snap) {
     var val = snap.val();
     val.pic = self._getPicURL(snap.name(), true);
-    val.bio = val.bio.substr(0, 141);
     val.location = val.location.substr(0, 80);
     onComplete(val);
   });
@@ -399,10 +398,13 @@ Firefeed.prototype.follow = function(user, onComplete) {
  * @param    {string}    content     The content of the spark in text form.
  * @param    {Function}  onComplete  The callback to call when the post is done.
  */
-Firefeed.prototype.post = function(content, onComplete) {
+Firefeed.prototype.post = function(content, location, qtny, onComplete) {
   var self = this;
   self._validateString(content, "spark");
+  self._validateString(content, "location");
   self._validateCallback(onComplete);
+  requested = Number(qtny);
+  fulfilled = 0;
 
   // First, we add the spark to the global sparks list. push() ensures that
   // we get a unique ID for the spark that is chronologically ordered.
@@ -413,8 +415,13 @@ Firefeed.prototype.post = function(content, onComplete) {
     author: self._userid,
     by: self._name,
     content: content,
+    location: location,
+    requested: requested,
+    fulfilled: fulfilled,
     timestamp: new Date().getTime()
   };
+
+  console.log("Good so far!");
 
   sparkRef.set(spark, function(err) {
     if (err) {

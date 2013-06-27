@@ -44,7 +44,7 @@ FirefeedUI.prototype._setupHandlers = function() {
     self.logout();
   });
 
-  $(document).on("keypress", "input#qnty", function(e) {
+  $(document).on("keypress", "#qnty", function(e) {
     var a = [];
     var k = e.which;
 
@@ -100,14 +100,15 @@ FirefeedUI.prototype._postHandler = function(e) {
   var sparkText = $("#spark-input");
   var sparkButton = $("#spark-button");
   var containerEl = $("#spark-button-div");
-  var qntyNum = $("#qnty");
+  var location = document.getElementById("inputLocation").innerHTML;
+  var qntyNum = document.getElementById("qnty").innerHTML;
   var message = $("<div>").addClass("msg").html("Posting...");
 
   var self = this;
   e.preventDefault();
   sparkButton.replaceWith(message);
   self._spinner.spin(containerEl.get(0));
-  self._firefeed.post(sparkText.val(), function(err, done) {
+  self._firefeed.post(sparkText.val(), location, qnty, function(err, done) {
     if (!err) {
       message.html("Posted!").css("background", "#008000");
       sparkText.val("");
@@ -130,6 +131,9 @@ FirefeedUI.prototype._handleNewSpark = function(listId, limit, func) {
     limit,
     function(sparkId, spark) {
       spark.content = spark.content.substring(0, self._limit);
+      spark.location = spark.location.substring(0, self._limit);
+	  spark.requested = spark.requested;
+	  spark.fulfilled = spark.fulfilled;
       spark.sparkId = sparkId;
       spark.friendlyTimestamp = self._formatDate(
         new Date(spark.timestamp || 0)
@@ -287,8 +291,8 @@ FirefeedUI.prototype.renderTimeline = function(info) {
   // Attach textarea handlers.
   var charCount = $("#c-count");
   var sparkText = $("#spark-input");
-  var qntyNum = $("input#qnty");
-  console.log(qntyNum);
+  var qntyNum = $("#qnty");
+
   $("#spark-button").css("visibility", "hidden");
   function _textAreaHandler() {
     var text = sparkText.val();
@@ -419,6 +423,9 @@ FirefeedUI.prototype.renderSpark = function(id) {
           spark[key] = authorInfo[key];
         }
         spark.content = spark.content.substring(0, self._limit);
+		spark.location = spark.location.substring(0, self._limit);
+		spark.requested = requested;
+		spark.fulfilled = fulfilled;
         spark.friendlyTimestamp = self._formatDate(
           new Date(spark.timestamp || 0)
         );
