@@ -100,6 +100,7 @@ FirefeedUI.prototype._postHandler = function(e) {
   var sparkText = $("#spark-input");
   var sparkButton = $("#spark-button");
   var containerEl = $("#spark-button-div");
+  var qntyCtrl = $("#qnty");
   var location = document.getElementById("inputLocation").innerHTML;
   var qntyNum = document.getElementById("qnty").value;
   var message = $("<div>").addClass("msg").html("Posting...");
@@ -112,6 +113,7 @@ FirefeedUI.prototype._postHandler = function(e) {
     if (!err) {
       message.html("Posted!").css("background", "#008000");
       sparkText.val("");
+      qntyCtrl.val("");
     } else {
       message.html("Posting failed!").css("background", "#FF6347");
     }
@@ -122,6 +124,7 @@ FirefeedUI.prototype._postHandler = function(e) {
       message.replaceWith(sparkButton);
       sparkButton.click(self._postHandler.bind(self));
     });
+    sparkButton.css("visibility", "hidden");
   });
 };
 
@@ -297,11 +300,12 @@ FirefeedUI.prototype.renderTimeline = function(info) {
   function _textAreaHandler() {
     var text = sparkText.val();
     var num = qntyNum.val();
+    var loc = document.getElementById("inputLocation").innerHTML;
     charCount.text("" + (self._limit - text.length));
     if (text.length > self._limit) {
       charCount.css("color", "#FF6347");
       $("#spark-button").css("visibility", "hidden");
-    } else if (num == "" || text.length == 0) {
+    } else if (loc == "Your Address..." || num == "" || text.length == 0) {
       $("#spark-button").css("visibility", "hidden");
     } else {
       charCount.css("color", "#999");
@@ -432,15 +436,15 @@ FirefeedUI.prototype.renderSpark = function(id) {
         );
 
         var id = spark[key];
-		$("#accept-button" + id).click(function(e){
+		$('#accept-button'+id).click([id],function(e){
 		    e.preventDefault();
-		      button.remove();
-			  console.log("button clicked!");
-		      self._firefeed.accept(id, function(err, done){
-			    if (!err) {
-			      $("#accept-button" + id).fadeOut(1500);
-			    }
-	          });
+		    button.remove();
+			console.log("button clicked!");
+		    self._firefeed.accept(id, function(err, done){
+			  if (!err) {
+			    $("#accept-button" + id).fadeOut(1500);
+			  }
+	        });
 		});
 
 		// var button = $("#accept-button" + id);

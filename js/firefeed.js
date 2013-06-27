@@ -353,10 +353,18 @@ Firefeed.prototype.accept = function(id, onComplete) {
 	//this is a stub
   var self = this;
   self._validateCallback(onComplete);
+  console.log("accept called. ready for transaction!");
 
   var sparkRef = self._firebase.child("sparks").child(id);
   sparkRef.transaction(function(fulfilled) {
-  	return fulfilled+1;
+   return (fulfilled||0)+1;
+  }, function(error) {
+   if( error ){
+	console.log("accept failed");
+   } /* failed too many times */
+   else{
+	 console.log("accept worked!");
+    } /* it worked */
   });
 };
 /**
@@ -431,8 +439,6 @@ Firefeed.prototype.post = function(content, location, qtny, onComplete) {
     fulfilled: fulfilled,
     timestamp: new Date().getTime()
   };
-
-  console.log("Good so far!");
 
   sparkRef.set(spark, function(err) {
     if (err) {

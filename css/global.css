@@ -243,6 +243,9 @@ h3,
   font-family: 'Proxima Nova Light', Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
+.big-copy.end{
+	float:left;
+}
 
 .copy{font-size: 14px;}
 
@@ -711,7 +714,7 @@ span.bold {
 
 /* Tablets
 ============================================================ */
-@media (min-width: 481px) and (max-width: 960px){
+@media (min-width: 611px) and (max-width: 960px){
   .hidden-tablet{display: none !important;}
   .visible-tablet{display: inherit !important;}
 
@@ -755,7 +758,7 @@ span.bold {
 
 /* Mobile
 ============================================================ */
-@media (max-width: 480px){
+@media (max-width: 610px){
   .hidden-phone{display: none !important;}
   .visible-phone{display: inherit !important;}
 
@@ -800,7 +803,7 @@ span.bold {
     overflow: hidden;
     margin-bottom: 0;
     float: left;
-    width: 80%;
+    width: 50%;
     display: table-cell;
   }
 
