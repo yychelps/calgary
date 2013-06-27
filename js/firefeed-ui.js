@@ -35,10 +35,6 @@ FirefeedUI.prototype._setupHandlers = function() {
     e.preventDefault();
     self._go($(this).attr("href"));
   });
-  // $(document).on("click", "#search-button", function(e) {
-  //     e.preventDefault();
-  //     self._go("/?search");
-  //   });
   $(document).on("click", "#top-logo", function(e) {
     e.preventDefault();
     self._go("/");
@@ -46,6 +42,17 @@ FirefeedUI.prototype._setupHandlers = function() {
   $(document).on("click", "#logout-button", function(e) {
     e.preventDefault();
     self.logout();
+  });
+
+  $(document).on("keypress", "input#qnty", function(e) {
+    var a = [];
+    var k = e.which;
+
+    for (i = 48; i < 58; i++)
+        a.push(i);
+
+    if (!($.inArray(k,a)>=0))
+        e.preventDefault();
   });
 };
 
@@ -93,6 +100,7 @@ FirefeedUI.prototype._postHandler = function(e) {
   var sparkText = $("#spark-input");
   var sparkButton = $("#spark-button");
   var containerEl = $("#spark-button-div");
+  var qntyNum = $("#qnty");
   var message = $("<div>").addClass("msg").html("Posting...");
 
   var self = this;
@@ -279,14 +287,17 @@ FirefeedUI.prototype.renderTimeline = function(info) {
   // Attach textarea handlers.
   var charCount = $("#c-count");
   var sparkText = $("#spark-input");
+  var qntyNum = $("input#qnty");
+  console.log(qntyNum);
   $("#spark-button").css("visibility", "hidden");
   function _textAreaHandler() {
     var text = sparkText.val();
+    var num = qntyNum.val();
     charCount.text("" + (self._limit - text.length));
     if (text.length > self._limit) {
       charCount.css("color", "#FF6347");
       $("#spark-button").css("visibility", "hidden");
-    } else if (text.length == 0) {
+    } else if (num == "" || text.length == 0) {
       $("#spark-button").css("visibility", "hidden");
     } else {
       charCount.css("color", "#999");
@@ -296,6 +307,7 @@ FirefeedUI.prototype.renderTimeline = function(info) {
   charCount.text(self._limit);
   sparkText.keyup(_textAreaHandler);
   sparkText.blur(_textAreaHandler);
+  qntyNum.keyup(_textAreaHandler);
 
   // Attach post spark button.
   $("#spark-button").click(self._postHandler.bind(self));
