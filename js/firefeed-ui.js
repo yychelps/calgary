@@ -141,9 +141,11 @@ FirefeedUI.prototype._handleNewSpark = function(listId, limit, func) {
       spark.friendlyTimestamp = self._formatDate(
         new Date(spark.timestamp || 0)
       );
-      var sparkEl = $(Mustache.to_html($("#tmpl-spark").html(), spark)).hide();
-      $("#" + listId).prepend(sparkEl);
-      sparkEl.slideDown("slow");
+	  if (spark.fulfilled<spark.requested){
+        var sparkEl = $(Mustache.to_html($("#tmpl-spark").html(), spark)).hide();
+        $("#" + listId).prepend(sparkEl);
+        sparkEl.slideDown("slow");
+	  };
     }, function(sparkId) {
       setTimeout(function() {
         $("#spark-" + sparkId).stop().slideToggle("slow", function() {
@@ -305,7 +307,7 @@ FirefeedUI.prototype.renderTimeline = function(info) {
     if (text.length > self._limit) {
       charCount.css("color", "#FF6347");
       $("#spark-button").css("visibility", "hidden");
-    } else if (loc == "Your Address..." || num == "" || text.length == 0) {
+    } else if (loc == "Your Address..." || num == "" || Number(num) > 100 || text.length == 0) {
       $("#spark-button").css("visibility", "hidden");
     } else {
       charCount.css("color", "#999");
@@ -435,15 +437,11 @@ FirefeedUI.prototype.renderSpark = function(id) {
           new Date(spark.timestamp || 0)
         );
 
-
         var content = Mustache.to_html($("#tmpl-spark-content").html(), spark);
         var body = Mustache.to_html($("#tmpl-content").html(), {
           classes: "cf", content: content
         });
         $("#body").html(body);
-
-		
-		
       });
     }
   });
