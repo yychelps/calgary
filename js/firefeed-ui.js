@@ -435,38 +435,20 @@ FirefeedUI.prototype.renderSpark = function(id) {
           new Date(spark.timestamp || 0)
         );
 
-        var id = spark[key];
-		$('#accept-button'+id).click([id],function(e){
-		    e.preventDefault();
-		    button.remove();
-			console.log("button clicked!");
-		    self._firefeed.accept(id, function(err, done){
-			  if (!err) {
-			    $("#accept-button" + id).fadeOut(1500);
-			  }
-	        });
-		});
-
-		// var button = $("#accept-button" + id);
-		// 	    // Fade out the button if transaction completed
-		// 	    button.click(function(e) {
-		// 	      e.preventDefault();
-		// 	      button.remove();
-		// 		  console.log("button clicked!");
-		// 	      self._firefeed.accept(id, function(err, done){
-		// 		    if (!err) {
-		// 		      $("#accept-button" + id).fadeOut(1500);
-		// 		    }
-		//           }); 
-		// 	    });
 
         var content = Mustache.to_html($("#tmpl-spark-content").html(), spark);
         var body = Mustache.to_html($("#tmpl-content").html(), {
           classes: "cf", content: content
         });
         $("#body").html(body);
+
+		
+		
       });
     }
   });
+
+
+
   return function() { self._firefeed.unload(); };
 };

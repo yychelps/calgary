@@ -64,6 +64,25 @@ Firefeed.prototype = {
            "/picture/?type=" + (large ? "large" : "square") +
            "&return_ssl_resources=1";
   },
+  _accept: function(id, onComplete) {
+	//this is a stub
+    var self = this;
+    self._validateCallback(onComplete);
+    console.log("accept called. ready for transaction!");
+
+    var sparkRef = self._firebase.child("sparks").child(id).child("fulfilled");
+    sparkRef.transaction(function(fulfilled) {
+	  console.log("transaction function");
+      return (fulfilled||0)+1;
+    }, function(error) {
+     if( error ){
+	 console.log("accept failed");
+     } /* failed too many times */
+    else{
+	  console.log("accept worked!");
+    } /* it worked */
+   });
+  },
   _onNewSparkForFeed: function(feed, onComplete, onOverflow) {
     var self = this;
 
@@ -79,6 +98,15 @@ Firefeed.prototype = {
           ret.pic = self._getPicURL(ret.author);
           onComplete(sparkSnap.name(), ret);
         }
+		// var id = spark[key];
+		var button = $('#accept-button'+sparkID);
+		button.click([sparkID],function(e){
+		    e.preventDefault();
+			console.log("button clicked!");
+			button.fadeOut(500);
+			$('#spark-'+sparkID).fadeOut(1000);
+		    self._accept(sparkID, function(err, done){});
+		});
       });
       self._handlers.push({
         ref: sparkRef, handler: handler, eventType: "value"
@@ -349,24 +377,24 @@ Firefeed.prototype.getSpark = function(id, onComplete) {
 };
 
 
-Firefeed.prototype.accept = function(id, onComplete) {
-	//this is a stub
-  var self = this;
-  self._validateCallback(onComplete);
-  console.log("accept called. ready for transaction!");
-
-  var sparkRef = self._firebase.child("sparks").child(id);
-  sparkRef.transaction(function(fulfilled) {
-   return (fulfilled||0)+1;
-  }, function(error) {
-   if( error ){
-	console.log("accept failed");
-   } /* failed too many times */
-   else{
-	 console.log("accept worked!");
-    } /* it worked */
-  });
-};
+// Firefeed.prototype.accept = function(id, onComplete) {
+// 	//this is a stub
+//   var self = this;
+//   self._validateCallback(onComplete);
+//   console.log("accept called. ready for transaction!");
+// 
+//   var sparkRef = self._firebase.child("sparks").child(id);
+//   sparkRef.transaction(function(fulfilled) {
+//    return (fulfilled||0)+1;
+//   }, function(error) {
+//    if( error ){
+// 	console.log("accept failed");
+//    } /* failed too many times */
+//    else{
+// 	 console.log("accept worked!");
+//     } /* it worked */
+//   });
+// };
 /**
  * Follow a particular user, on behalf of the user who is currently logged in.
  * The provided callback will be called with (err, done) where "err" will be
